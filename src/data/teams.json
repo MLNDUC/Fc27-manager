@@ -1,0 +1,80 @@
+{
+    "epl_teams": {
+        "tier_1": [
+            "Arsenal",
+            "Manchester City",
+            "Liverpool",
+            "Manchester United"
+        ],
+        "tier_2": [
+            "Chelsea",
+            "Tottenham Hotspur",
+            "Aston Villa",
+            "Newcastle United"
+        ],
+        "tier_3": [
+            "Brighton & Hove Albion",
+            "AFC Bournemouth",
+            "Brentford",
+            "Crystal Palace"
+        ],
+        "tier_4": [
+            "Everton",
+            "Fulham",
+            "Sunderland",
+            "Nottingham Forest"
+        ],
+        "tier_5": [
+            "Leeds United",
+            "Ipswich Town",
+            "Coventry City",
+            "Hull City"
+        ]
+    },
+    "c1_teams": {
+        "pot_1": [
+            "Paris Saint-Germain",
+            "FC Bayern Munich",
+            "Real Madrid",
+            "Liverpool",
+            "Inter Milan",
+            "Manchester City",
+            "Arsenal",
+            "FC Barcelona",
+            "Atlético Madrid"
+        ],
+        "pot_2": [
+            "Borussia Dortmund",
+            "AS Roma",
+            "Sporting CP",
+            "Aston Villa",
+            "FC Porto",
+            "Manchester United",
+            "Club Brugge",
+            "Real Betis",
+            "PSV Eindhoven"
+        ],
+        "pot_3": [
+            "Feyenoord",
+            "LOSC Lille",
+            "FK Bodø/Glimt",
+            "SSC Napoli",
+            "RB Leipzig",
+            "Villarreal CF",
+            "Fenerbahçe SK",
+            "FC Shakhtar Donetsk",
+            "Galatasaray SK"
+        ],
+        "pot_4": [
+            "SK Slavia Prague",
+            "ŠK Slovan Bratislava",
+            "VfB Stuttgart",
+            "AEK Athens",
+            "LASK",
+            "Como 1907",
+            "RC Lens",
+            "Viking FK",
+            "Sabah FK"
+        ]
+    }
+}

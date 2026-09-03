@@ -1,0 +1,722 @@
+[
+    {
+        "matchday": 1,
+        "home": "AEK Athens",
+        "away": "LASK"
+    },
+    {
+        "matchday": 1,
+        "home": "Club Brugge",
+        "away": "Aston Villa"
+    },
+    {
+        "matchday": 1,
+        "home": "Borussia Dortmund",
+        "away": "Villarreal CF"
+    },
+    {
+        "matchday": 1,
+        "home": "FC Porto",
+        "away": "Manchester City"
+    },
+    {
+        "matchday": 1,
+        "home": "LOSC Lille",
+        "away": "Real Betis"
+    },
+    {
+        "matchday": 1,
+        "home": "Real Madrid",
+        "away": "Inter Milan"
+    },
+    {
+        "matchday": 1,
+        "home": "FC Barcelona",
+        "away": "Feyenoord"
+    },
+    {
+        "matchday": 1,
+        "home": "VfB Stuttgart",
+        "away": "Viking FK"
+    },
+    {
+        "matchday": 1,
+        "home": "Liverpool",
+        "away": "Atlético Madrid"
+    },
+    {
+        "matchday": 1,
+        "home": "Paris Saint-Germain",
+        "away": "ŠK Slovan Bratislava"
+    },
+    {
+        "matchday": 1,
+        "home": "Sporting CP",
+        "away": "Galatasaray SK"
+    },
+    {
+        "matchday": 1,
+        "home": "SSC Napoli",
+        "away": "Arsenal"
+    },
+    {
+        "matchday": 1,
+        "home": "Fenerbahçe SK",
+        "away": "AS Roma"
+    },
+    {
+        "matchday": 1,
+        "home": "PSV Eindhoven",
+        "away": "FC Shakhtar Donetsk"
+    },
+    {
+        "matchday": 1,
+        "home": "Como 1907",
+        "away": "RB Leipzig"
+    },
+    {
+        "matchday": 1,
+        "home": "FC Bayern Munich",
+        "away": "FK Bodø/Glimt"
+    },
+    {
+        "matchday": 1,
+        "home": "Manchester United",
+        "away": "Sabah FK"
+    },
+    {
+        "matchday": 1,
+        "home": "SK Slavia Prague",
+        "away": "RC Lens"
+    },
+    {
+        "matchday": 2,
+        "home": "RC Lens",
+        "away": "Sporting CP"
+    },
+    {
+        "matchday": 2,
+        "home": "Sabah FK",
+        "away": "SK Slavia Prague"
+    },
+    {
+        "matchday": 2,
+        "home": "Arsenal",
+        "away": "LOSC Lille"
+    },
+    {
+        "matchday": 2,
+        "home": "Atlético Madrid",
+        "away": "Manchester United"
+    },
+    {
+        "matchday": 2,
+        "home": "Inter Milan",
+        "away": "Club Brugge"
+    },
+    {
+        "matchday": 2,
+        "home": "Galatasaray SK",
+        "away": "FC Barcelona"
+    },
+    {
+        "matchday": 2,
+        "home": "RB Leipzig",
+        "away": "PSV Eindhoven"
+    },
+    {
+        "matchday": 2,
+        "home": "Viking FK",
+        "away": "FC Bayern Munich"
+    },
+    {
+        "matchday": 2,
+        "home": "Villarreal CF",
+        "away": "SSC Napoli"
+    },
+    {
+        "matchday": 2,
+        "home": "Feyenoord",
+        "away": "Como 1907"
+    },
+    {
+        "matchday": 2,
+        "home": "LASK",
+        "away": "Liverpool"
+    },
+    {
+        "matchday": 2,
+        "home": "AS Roma",
+        "away": "Real Madrid"
+    },
+    {
+        "matchday": 2,
+        "home": "Aston Villa",
+        "away": "Fenerbahçe SK"
+    },
+    {
+        "matchday": 2,
+        "home": "FC Shakhtar Donetsk",
+        "away": "AEK Athens"
+    },
+    {
+        "matchday": 2,
+        "home": "FK Bodø/Glimt",
+        "away": "Borussia Dortmund"
+    },
+    {
+        "matchday": 2,
+        "home": "Manchester City",
+        "away": "Paris Saint-Germain"
+    },
+    {
+        "matchday": 2,
+        "home": "Real Betis",
+        "away": "FC Porto"
+    },
+    {
+        "matchday": 2,
+        "home": "ŠK Slovan Bratislava",
+        "away": "VfB Stuttgart"
+    },
+    {
+        "matchday": 3,
+        "home": "Fenerbahçe SK",
+        "away": "SK Slavia Prague"
+    },
+    {
+        "matchday": 3,
+        "home": "Sabah FK",
+        "away": "Borussia Dortmund"
+    },
+    {
+        "matchday": 3,
+        "home": "AS Roma",
+        "away": "ŠK Slovan Bratislava"
+    },
+    {
+        "matchday": 3,
+        "home": "FC Porto",
+        "away": "PSV Eindhoven"
+    },
+    {
+        "matchday": 3,
+        "home": "Liverpool",
+        "away": "Villarreal CF"
+    },
+    {
+        "matchday": 3,
+        "home": "Manchester City",
+        "away": "AEK Athens"
+    },
+    {
+        "matchday": 3,
+        "home": "Paris Saint-Germain",
+        "away": "FC Barcelona"
+    },
+    {
+        "matchday": 3,
+        "home": "SSC Napoli",
+        "away": "FK Bodø/Glimt"
+    },
+    {
+        "matchday": 3,
+        "home": "VfB Stuttgart",
+        "away": "Atlético Madrid"
+    },
+    {
+        "matchday": 3,
+        "home": "Como 1907",
+        "away": "Manchester United"
+    },
+    {
+        "matchday": 3,
+        "home": "LOSC Lille",
+        "away": "Galatasaray SK"
+    },
+    {
+        "matchday": 3,
+        "home": "Aston Villa",
+        "away": "Viking FK"
+    },
+    {
+        "matchday": 3,
+        "home": "Club Brugge",
+        "away": "RC Lens"
+    },
+    {
+        "matchday": 3,
+        "home": "FC Bayern Munich",
+        "away": "Arsenal"
+    },
+    {
+        "matchday": 3,
+        "home": "Inter Milan",
+        "away": "FC Shakhtar Donetsk"
+    },
+    {
+        "matchday": 3,
+        "home": "Real Madrid",
+        "away": "RB Leipzig"
+    },
+    {
+        "matchday": 3,
+        "home": "Real Betis",
+        "away": "Feyenoord"
+    },
+    {
+        "matchday": 3,
+        "home": "Sporting CP",
+        "away": "LASK"
+    },
+    {
+        "matchday": 4,
+        "home": "FC Shakhtar Donetsk",
+        "away": "Sporting CP"
+    },
+    {
+        "matchday": 4,
+        "home": "Galatasaray SK",
+        "away": "VfB Stuttgart"
+    },
+    {
+        "matchday": 4,
+        "home": "Atlético Madrid",
+        "away": "FC Bayern Munich"
+    },
+    {
+        "matchday": 4,
+        "home": "FC Barcelona",
+        "away": "Aston Villa"
+    },
+    {
+        "matchday": 4,
+        "home": "Feyenoord",
+        "away": "Inter Milan"
+    },
+    {
+        "matchday": 4,
+        "home": "FK Bodø/Glimt",
+        "away": "LOSC Lille"
+    },
+    {
+        "matchday": 4,
+        "home": "LASK",
+        "away": "ŠK Slovan Bratislava"
+    },
+    {
+        "matchday": 4,
+        "home": "Manchester United",
+        "away": "AS Roma"
+    },
+    {
+        "matchday": 4,
+        "home": "Villarreal CF",
+        "away": "Paris Saint-Germain"
+    },
+    {
+        "matchday": 4,
+        "home": "AEK Athens",
+        "away": "Real Madrid"
+    },
+    {
+        "matchday": 4,
+        "home": "Fenerbahçe SK",
+        "away": "Liverpool"
+    },
+    {
+        "matchday": 4,
+        "home": "Borussia Dortmund",
+        "away": "Real Betis"
+    },
+    {
+        "matchday": 4,
+        "home": "FC Porto",
+        "away": "SSC Napoli"
+    },
+    {
+        "matchday": 4,
+        "home": "PSV Eindhoven",
+        "away": "Club Brugge"
+    },
+    {
+        "matchday": 4,
+        "home": "RB Leipzig",
+        "away": "Manchester City"
+    },
+    {
+        "matchday": 4,
+        "home": "RC Lens",
+        "away": "Como 1907"
+    },
+    {
+        "matchday": 4,
+        "home": "SK Slavia Prague",
+        "away": "Arsenal"
+    },
+    {
+        "matchday": 4,
+        "home": "Viking FK",
+        "away": "Sabah FK"
+    },
+    {
+        "matchday": 5,
+        "home": "FK Bodø/Glimt",
+        "away": "LASK"
+    },
+    {
+        "matchday": 5,
+        "home": "Galatasaray SK",
+        "away": "Aston Villa"
+    },
+    {
+        "matchday": 5,
+        "home": "Arsenal",
+        "away": "Borussia Dortmund"
+    },
+    {
+        "matchday": 5,
+        "home": "Como 1907",
+        "away": "AEK Athens"
+    },
+    {
+        "matchday": 5,
+        "home": "Feyenoord",
+        "away": "FC Porto"
+    },
+    {
+        "matchday": 5,
+        "home": "Manchester City",
+        "away": "SSC Napoli"
+    },
+    {
+        "matchday": 5,
+        "home": "RB Leipzig",
+        "away": "RC Lens"
+    },
+    {
+        "matchday": 5,
+        "home": "Real Madrid",
+        "away": "PSV Eindhoven"
+    },
+    {
+        "matchday": 5,
+        "home": "ŠK Slovan Bratislava",
+        "away": "Real Betis"
+    },
+    {
+        "matchday": 5,
+        "home": "Sabah FK",
+        "away": "FC Barcelona"
+    },
+    {
+        "matchday": 5,
+        "home": "SK Slavia Prague",
+        "away": "Villarreal CF"
+    },
+    {
+        "matchday": 5,
+        "home": "Atlético Madrid",
+        "away": "Viking FK"
+    },
+    {
+        "matchday": 5,
+        "home": "Club Brugge",
+        "away": "Liverpool"
+    },
+    {
+        "matchday": 5,
+        "home": "Inter Milan",
+        "away": "VfB Stuttgart"
+    },
+    {
+        "matchday": 5,
+        "home": "FC Shakhtar Donetsk",
+        "away": "Fenerbahçe SK"
+    },
+    {
+        "matchday": 5,
+        "home": "LOSC Lille",
+        "away": "FC Bayern Munich"
+    },
+    {
+        "matchday": 5,
+        "home": "Paris Saint-Germain",
+        "away": "AS Roma"
+    },
+    {
+        "matchday": 5,
+        "home": "Sporting CP",
+        "away": "Manchester United"
+    },
+    {
+        "matchday": 6,
+        "home": "Viking FK",
+        "away": "Feyenoord"
+    },
+    {
+        "matchday": 6,
+        "home": "Villarreal CF",
+        "away": "Sabah FK"
+    },
+    {
+        "matchday": 6,
+        "home": "AEK Athens",
+        "away": "Galatasaray SK"
+    },
+    {
+        "matchday": 6,
+        "home": "AS Roma",
+        "away": "Sporting CP"
+    },
+    {
+        "matchday": 6,
+        "home": "Aston Villa",
+        "away": "Paris Saint-Germain"
+    },
+    {
+        "matchday": 6,
+        "home": "FC Barcelona",
+        "away": "Manchester City"
+    },
+    {
+        "matchday": 6,
+        "home": "FC Bayern Munich",
+        "away": "SK Slavia Prague"
+    },
+    {
+        "matchday": 6,
+        "home": "Manchester United",
+        "away": "RB Leipzig"
+    },
+    {
+        "matchday": 6,
+        "home": "SSC Napoli",
+        "away": "Club Brugge"
+    },
+    {
+        "matchday": 6,
+        "home": "Real Betis",
+        "away": "Como 1907"
+    },
+    {
+        "matchday": 6,
+        "home": "ŠK Slovan Bratislava",
+        "away": "FC Shakhtar Donetsk"
+    },
+    {
+        "matchday": 6,
+        "home": "Arsenal",
+        "away": "Real Madrid"
+    },
+    {
+        "matchday": 6,
+        "home": "Borussia Dortmund",
+        "away": "Inter Milan"
+    },
+    {
+        "matchday": 6,
+        "home": "LASK",
+        "away": "Fenerbahçe SK"
+    },
+    {
+        "matchday": 6,
+        "home": "Liverpool",
+        "away": "FC Porto"
+    },
+    {
+        "matchday": 6,
+        "home": "PSV Eindhoven",
+        "away": "Atlético Madrid"
+    },
+    {
+        "matchday": 6,
+        "home": "RC Lens",
+        "away": "FK Bodø/Glimt"
+    },
+    {
+        "matchday": 6,
+        "home": "VfB Stuttgart",
+        "away": "LOSC Lille"
+    },
+    {
+        "matchday": 7,
+        "home": "FK Bodø/Glimt",
+        "away": "Atlético Madrid"
+    },
+    {
+        "matchday": 7,
+        "home": "Galatasaray SK",
+        "away": "Feyenoord"
+    },
+    {
+        "matchday": 7,
+        "home": "AEK Athens",
+        "away": "AS Roma"
+    },
+    {
+        "matchday": 7,
+        "home": "Aston Villa",
+        "away": "Borussia Dortmund"
+    },
+    {
+        "matchday": 7,
+        "home": "Inter Milan",
+        "away": "Liverpool"
+    },
+    {
+        "matchday": 7,
+        "home": "FC Porto",
+        "away": "SK Slavia Prague"
+    },
+    {
+        "matchday": 7,
+        "home": "LOSC Lille",
+        "away": "ŠK Slovan Bratislava"
+    },
+    {
+        "matchday": 7,
+        "home": "Real Madrid",
+        "away": "LASK"
+    },
+    {
+        "matchday": 7,
+        "home": "VfB Stuttgart",
+        "away": "Club Brugge"
+    },
+    {
+        "matchday": 7,
+        "home": "Fenerbahçe SK",
+        "away": "Villarreal CF"
+    },
+    {
+        "matchday": 7,
+        "home": "Sabah FK",
+        "away": "SSC Napoli"
+    },
+    {
+        "matchday": 7,
+        "home": "Como 1907",
+        "away": "Paris Saint-Germain"
+    },
+    {
+        "matchday": 7,
+        "home": "Manchester United",
+        "away": "FC Bayern Munich"
+    },
+    {
+        "matchday": 7,
+        "home": "RB Leipzig",
+        "away": "FC Shakhtar Donetsk"
+    },
+    {
+        "matchday": 7,
+        "home": "RC Lens",
+        "away": "Manchester City"
+    },
+    {
+        "matchday": 7,
+        "home": "Real Betis",
+        "away": "Arsenal"
+    },
+    {
+        "matchday": 7,
+        "home": "Sporting CP",
+        "away": "FC Barcelona"
+    },
+    {
+        "matchday": 7,
+        "home": "Viking FK",
+        "away": "PSV Eindhoven"
+    },
+    {
+        "matchday": 8,
+        "home": "Arsenal",
+        "away": "Sabah FK"
+    },
+    {
+        "matchday": 8,
+        "home": "AS Roma",
+        "away": "LOSC Lille"
+    },
+    {
+        "matchday": 8,
+        "home": "Atlético Madrid",
+        "away": "Fenerbahçe SK"
+    },
+    {
+        "matchday": 8,
+        "home": "Borussia Dortmund",
+        "away": "AEK Athens"
+    },
+    {
+        "matchday": 8,
+        "home": "Club Brugge",
+        "away": "FK Bodø/Glimt"
+    },
+    {
+        "matchday": 8,
+        "home": "FC Bayern Munich",
+        "away": "Real Betis"
+    },
+    {
+        "matchday": 8,
+        "home": "FC Barcelona",
+        "away": "Como 1907"
+    },
+    {
+        "matchday": 8,
+        "home": "FC Shakhtar Donetsk",
+        "away": "Real Madrid"
+    },
+    {
+        "matchday": 8,
+        "home": "Feyenoord",
+        "away": "RB Leipzig"
+    },
+    {
+        "matchday": 8,
+        "home": "LASK",
+        "away": "FC Porto"
+    },
+    {
+        "matchday": 8,
+        "home": "Liverpool",
+        "away": "RC Lens"
+    },
+    {
+        "matchday": 8,
+        "home": "Manchester City",
+        "away": "Sporting CP"
+    },
+    {
+        "matchday": 8,
+        "home": "Paris Saint-Germain",
+        "away": "Galatasaray SK"
+    },
+    {
+        "matchday": 8,
+        "home": "PSV Eindhoven",
+        "away": "VfB Stuttgart"
+    },
+    {
+        "matchday": 8,
+        "home": "SK Slavia Prague",
+        "away": "Aston Villa"
+    },
+    {
+        "matchday": 8,
+        "home": "SSC Napoli",
+        "away": "Viking FK"
+    },
+    {
+        "matchday": 8,
+        "home": "Villarreal CF",
+        "away": "Manchester United"
+    },
+    {
+        "matchday": 8,
+        "home": "ŠK Slovan Bratislava",
+        "away": "Inter Milan"
+    }
+]
