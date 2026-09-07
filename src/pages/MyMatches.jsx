@@ -1,37 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
-import { Swords, Check, X, Handshake, ChevronDown, Zap, Edit, Trophy, Lock } from 'lucide-react';
+import { Swords, X, Handshake, ChevronDown, Zap, Edit, Trophy, Lock } from 'lucide-react';
 
 export default function MyMatches() {
-    const [tournament, setTournament] = useState(null);
-    const [currentUser, setCurrentUser] = useState(null);
+    const navigate = useNavigate();
 
+    // Khởi tạo currentUser trực tiếp thay vì thông qua useEffect
+    const [currentUser] = useState(() => {
+        const userData = localStorage.getItem('fc27_user');
+        return userData ? JSON.parse(userData) : null;
+    });
+
+    const [tournament, setTournament] = useState(null);
     const [activeMatch, setActiveMatch] = useState(null);
     const [activeLeg, setActiveLeg] = useState(1);
-
     const [scoreInput, setScoreInput] = useState({
         leg1Home: '', leg1Away: '',
         leg2Home: '', leg2Away: '',
         home: '', away: ''
     });
-
     const [activeInput, setActiveInput] = useState('home');
     const [filterTab, setFilterTab] = useState('ALL');
 
-    const navigate = useNavigate();
-
     useEffect(() => {
-        const userData = localStorage.getItem('fc27_user');
-        if (!userData) {
+        if (!currentUser) {
             navigate('/');
             return;
         }
-        const parsedUser = JSON.parse(userData);
-        setCurrentUser(parsedUser);
 
-        const docRef = doc(db, 'tournaments', parsedUser.roomCode);
+        const docRef = doc(db, 'tournaments', currentUser.roomCode);
         const unsubscribe = onSnapshot(docRef, (docSnap) => {
             if (docSnap.exists()) {
                 setTournament(docSnap.data());
@@ -39,89 +38,104 @@ export default function MyMatches() {
         });
 
         return () => unsubscribe();
-    }, [navigate]);
+    }, [navigate, currentUser]);
+
+    // Sử dụng useMemo để ngăn chặn việc tính toán lại danh sách các đối thủ trong mỗi lần render
+    const opponents = useMemo(() => {
+        if (!tournament || !currentUser) return [];
+        return tournament.players.map(p => p.name).filter(name => name !== currentUser.name);
+    }, [tournament, currentUser]);
+
+    // Tính toán quyền sở hữu đội bóng, phân tích trận đấu và sắp xếp, được bọc trong một useMemo
+    const processedMatches = useMemo(() => {
+        if (!tournament || !currentUser) return [];
+
+        const teamOwners = {};
+        tournament.players.forEach(p => {
+            p.teams.forEach(t => teamOwners[t] = p.name);
+        });
+
+        let myMatchesRaw = tournament.matches?.filter(m =>
+            currentUser.isHost ||
+            teamOwners[m.home] === currentUser.name ||
+            teamOwners[m.away] === currentUser.name
+        ).map(m => ({ ...m, isLeague: true })) || [];
+
+        if (tournament.knockouts) {
+            Object.entries(tournament.knockouts).forEach(([round, matches]) => {
+                matches.forEach((m, idx) => {
+                    if (m.teamA?.name && m.teamB?.name && m.teamA?.name !== 'TBD' && m.teamB?.name !== 'TBD' && !m.teamA?.name.includes('Winner') && !m.teamB?.name.includes('Winner')) {
+                        if (currentUser.isHost || m.teamA.owner === currentUser.name || m.teamB.owner === currentUser.name) {
+                            myMatchesRaw.push({
+                                ...m,
+                                isKnockout: true,
+                                koRound: round,
+                                koIndex: idx,
+                                home: m.teamA.name,
+                                away: m.teamB.name,
+                                homeScore: m.teamA.score,
+                                awayScore: m.teamB.score,
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        const filteredMatches = myMatchesRaw.filter(match => {
+            if (filterTab === 'ALL') return true;
+            if (filterTab === 'KNOCKOUT') return match.isKnockout;
+            const homeOwner = match.isKnockout ? match.teamA.owner : teamOwners[match.home];
+            const awayOwner = match.isKnockout ? match.teamB.owner : teamOwners[match.away];
+            if (filterTab === 'INTERNAL') return homeOwner === awayOwner;
+            return (homeOwner === filterTab || awayOwner === filterTab) && (homeOwner !== awayOwner);
+        });
+
+        return [...filteredMatches].sort((a, b) => {
+            const isCompletedA = a.status === 'completed';
+            const isCompletedB = b.status === 'completed';
+            if (isCompletedA !== isCompletedB) return isCompletedA ? 1 : -1;
+
+            const getRoundWeight = (match) => {
+                if (!match.isKnockout) return 0;
+                const order = { 'playoffs': 1, 'r16': 2, 'qf': 3, 'sf': 4, 'final': 5 };
+                return order[match.koRound] || 99;
+            };
+            const roundA = getRoundWeight(a);
+            const roundB = getRoundWeight(b);
+            if (roundA !== roundB) return roundA - roundB;
+
+            const getPriority = (match) => {
+                const homeOwner = match.isKnockout ? match.teamA.owner : teamOwners[match.home];
+                const awayOwner = match.isKnockout ? match.teamB.owner : teamOwners[match.away];
+                const isMyMatch = homeOwner === currentUser.name || awayOwner === currentUser.name;
+
+                if (!isMyMatch) return 5;
+
+                const opponentName = homeOwner === currentUser.name ? awayOwner : homeOwner;
+                const isMeReady = match.readyManagers?.includes(currentUser.name);
+                const isOpponentReady = match.readyManagers?.includes(opponentName);
+                const hasPing = isOpponentReady && !isMeReady;
+                const hasProposal = match.scoreProposal !== undefined;
+
+                if (hasPing || (isMeReady && isOpponentReady) || hasProposal) return 1;
+                if (homeOwner === awayOwner) return 2;
+                if (match.status === 'leg1_completed') return 3;
+                return 4;
+            };
+
+            return getPriority(a) - getPriority(b);
+        });
+    }, [tournament, currentUser, filterTab]);
 
     if (!tournament || !currentUser) return null;
 
     const isLeagueComplete = tournament.matches?.length > 0 && tournament.matches.every(m => m.status === 'completed');
-
+    
+    // Tái tạo lại teamOwners cục bộ cho logic render (nếu cần thiết sau bước useMemo)
     const teamOwners = {};
     tournament.players.forEach(p => {
         p.teams.forEach(t => teamOwners[t] = p.name);
-    });
-
-    const opponents = tournament.players.map(p => p.name).filter(name => name !== currentUser.name);
-
-    let myMatchesRaw = tournament.matches?.filter(m =>
-        currentUser.isHost ||
-        teamOwners[m.home] === currentUser.name ||
-        teamOwners[m.away] === currentUser.name
-    ).map(m => ({ ...m, isLeague: true })) || [];
-
-    if (tournament.knockouts) {
-        Object.entries(tournament.knockouts).forEach(([round, matches]) => {
-            matches.forEach((m, idx) => {
-                if (m.teamA?.name && m.teamB?.name && m.teamA?.name !== 'TBD' && m.teamB?.name !== 'TBD' && !m.teamA?.name.includes('Winner') && !m.teamB?.name.includes('Winner')) {
-                    if (currentUser.isHost || m.teamA.owner === currentUser.name || m.teamB.owner === currentUser.name) {
-                        myMatchesRaw.push({
-                            ...m,
-                            isKnockout: true,
-                            koRound: round,
-                            koIndex: idx,
-                            home: m.teamA.name,
-                            away: m.teamB.name,
-                            homeScore: m.teamA.score,
-                            awayScore: m.teamB.score,
-                        });
-                    }
-                }
-            });
-        });
-    }
-
-    const filteredMatches = myMatchesRaw.filter(match => {
-        if (filterTab === 'ALL') return true;
-        if (filterTab === 'KNOCKOUT') return match.isKnockout;
-        const homeOwner = match.isKnockout ? match.teamA.owner : teamOwners[match.home];
-        const awayOwner = match.isKnockout ? match.teamB.owner : teamOwners[match.away];
-        if (filterTab === 'INTERNAL') return homeOwner === awayOwner;
-        return (homeOwner === filterTab || awayOwner === filterTab) && (homeOwner !== awayOwner);
-    });
-
-    const sortedMatches = [...filteredMatches].sort((a, b) => {
-        const isCompletedA = a.status === 'completed';
-        const isCompletedB = b.status === 'completed';
-        if (isCompletedA !== isCompletedB) return isCompletedA ? 1 : -1;
-
-        const getRoundWeight = (match) => {
-            if (!match.isKnockout) return 0;
-            const order = { 'playoffs': 1, 'r16': 2, 'qf': 3, 'sf': 4, 'final': 5 };
-            return order[match.koRound] || 99;
-        };
-        const roundA = getRoundWeight(a);
-        const roundB = getRoundWeight(b);
-        if (roundA !== roundB) return roundA - roundB;
-
-        const getPriority = (match) => {
-            const homeOwner = match.isKnockout ? match.teamA.owner : teamOwners[match.home];
-            const awayOwner = match.isKnockout ? match.teamB.owner : teamOwners[match.away];
-            const isMyMatch = homeOwner === currentUser.name || awayOwner === currentUser.name;
-
-            if (!isMyMatch) return 5;
-
-            const opponentName = homeOwner === currentUser.name ? awayOwner : homeOwner;
-            const isMeReady = match.readyManagers?.includes(currentUser.name);
-            const isOpponentReady = match.readyManagers?.includes(opponentName);
-            const hasPing = isOpponentReady && !isMeReady;
-            const hasProposal = match.scoreProposal !== undefined;
-
-            if (hasPing || (isMeReady && isOpponentReady) || hasProposal) return 1;
-            if (homeOwner === awayOwner) return 2;
-            if (match.status === 'leg1_completed') return 3;
-            return 4;
-        };
-
-        return getPriority(a) - getPriority(b);
     });
 
     const advanceKnockoutWinner = (knockouts, round, index, winnerObj) => {
@@ -402,7 +416,7 @@ export default function MyMatches() {
             </div>
 
             <div className="space-y-4">
-                {sortedMatches.map((match, idx) => {
+                {processedMatches.map((match, idx) => {
                     const homeOwner = match.isKnockout ? match.teamA.owner : teamOwners[match.home];
                     const awayOwner = match.isKnockout ? match.teamB.owner : teamOwners[match.away];
                     const isCompleted = match.status === 'completed';
