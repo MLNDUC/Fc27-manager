@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
-import { Swords, X, Handshake, ChevronDown, Zap, Edit, Trophy, Lock } from 'lucide-react';
+import { Swords, X, Handshake, ChevronDown, Zap, Edit, Trophy, Lock, CheckCircle2 } from 'lucide-react';
 
 export default function MyMatches() {
     const navigate = useNavigate();
@@ -55,42 +55,48 @@ export default function MyMatches() {
             p.teams.forEach(t => teamOwners[t] = p.name);
         });
 
-        let myMatchesRaw = tournament.matches?.filter(m =>
-            currentUser.isHost ||
-            teamOwners[m.home] === currentUser.name ||
-            teamOwners[m.away] === currentUser.name
-        ).map(m => ({ ...m, isLeague: true })) || [];
+        // 1. GOM TOÀN BỘ TRẬN ĐẤU CHO MỌI USER (Không cần check isHost nữa)
+        let myMatchesRaw = tournament.matches?.map(m => ({ ...m, isLeague: true })) || [];
 
         if (tournament.knockouts) {
             Object.entries(tournament.knockouts).forEach(([round, matches]) => {
                 matches.forEach((m, idx) => {
                     if (m.teamA?.name && m.teamB?.name && m.teamA?.name !== 'TBD' && m.teamB?.name !== 'TBD' && !m.teamA?.name.includes('Winner') && !m.teamB?.name.includes('Winner')) {
-                        if (currentUser.isHost || m.teamA.owner === currentUser.name || m.teamB.owner === currentUser.name) {
-                            myMatchesRaw.push({
-                                ...m,
-                                isKnockout: true,
-                                koRound: round,
-                                koIndex: idx,
-                                home: m.teamA.name,
-                                away: m.teamB.name,
-                                homeScore: m.teamA.score,
-                                awayScore: m.teamB.score,
-                            });
-                        }
+                         // Đưa tất cả trận KO hợp lệ vào danh sách tổng
+                        myMatchesRaw.push({
+                            ...m,
+                            isKnockout: true,
+                            koRound: round,
+                            koIndex: idx,
+                            home: m.teamA.name,
+                            away: m.teamB.name,
+                            homeScore: m.teamA.score,
+                            awayScore: m.teamB.score,
+                        });
                     }
                 });
             });
         }
 
+        // 2. LỌC DỮ LIỆU THEO TỪNG TAB
         const filteredMatches = myMatchesRaw.filter(match => {
-            if (filterTab === 'ALL') return true;
+            if (filterTab === 'ALL') return true; // Tab ALL: Ai cũng thấy được toàn bộ giải đấu
+            if (filterTab === 'COMPLETED') return match.status === 'completed'; // Thêm lọc cho tab COMPLETED
             if (filterTab === 'KNOCKOUT') return match.isKnockout;
+
             const homeOwner = match.isKnockout ? match.teamA.owner : teamOwners[match.home];
             const awayOwner = match.isKnockout ? match.teamB.owner : teamOwners[match.away];
+
             if (filterTab === 'INTERNAL') return homeOwner === awayOwner;
-            return (homeOwner === filterTab || awayOwner === filterTab) && (homeOwner !== awayOwner);
+
+            // TAB "vs [ĐỐI THỦ]": Chỉ hiện trận đối đầu trực tiếp giữa MÌNH và ĐỐI THỦ
+            const isMyMatch = homeOwner === currentUser.name || awayOwner === currentUser.name;
+            const isOpponentMatch = homeOwner === filterTab || awayOwner === filterTab;
+            
+            return isMyMatch && isOpponentMatch && (homeOwner !== awayOwner);
         });
 
+        // 3. SẮP XẾP ƯU TIÊN
         return [...filteredMatches].sort((a, b) => {
             const isCompletedA = a.status === 'completed';
             const isCompletedB = b.status === 'completed';
@@ -110,6 +116,8 @@ export default function MyMatches() {
                 const awayOwner = match.isKnockout ? match.teamB.owner : teamOwners[match.away];
                 const isMyMatch = homeOwner === currentUser.name || awayOwner === currentUser.name;
 
+                // Nếu xem tab ALL, đẩy các trận của NGƯỜI KHÁC xuống dưới cùng (Ưu tiên 5)
+                // Các trận CỦA MÌNH sẽ luôn nổi lên trên cho dễ tìm
                 if (!isMyMatch) return 5;
 
                 const opponentName = homeOwner === currentUser.name ? awayOwner : homeOwner;
@@ -404,14 +412,21 @@ export default function MyMatches() {
 
             <div className="flex overflow-x-auto gap-2 px-2 pb-4 mb-2 scrollbar-hide">
                 <button onClick={() => setFilterTab('ALL')} className={`whitespace-nowrap px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm ${filterTab === 'ALL' ? 'bg-slate-800 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>All</button>
+                
                 {tournament.knockouts && (
                     <button onClick={() => setFilterTab('KNOCKOUT')} className={`whitespace-nowrap px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm flex items-center ${filterTab === 'KNOCKOUT' ? 'bg-amber-500 text-white' : 'bg-white text-amber-600 border border-amber-200'}`}>
                         <Trophy size={14} className="mr-1.5" /> Knockouts
                     </button>
                 )}
+                
                 {opponents.map(opp => (
                     <button key={opp} onClick={() => setFilterTab(opp)} className={`whitespace-nowrap px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm ${filterTab === opp ? 'bg-blue-600 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>vs {opp}</button>
                 ))}
+
+                <button onClick={() => setFilterTab('COMPLETED')} className={`whitespace-nowrap px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm flex items-center ${filterTab === 'COMPLETED' ? 'bg-emerald-600 text-white' : 'bg-white text-emerald-600 border border-emerald-200'}`}>
+                    <CheckCircle2 size={14} className="mr-1.5" /> Completed
+                </button>
+
                 <button onClick={() => setFilterTab('INTERNAL')} className={`whitespace-nowrap px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm ${filterTab === 'INTERNAL' ? 'bg-slate-800 text-white' : 'bg-white text-slate-500 border border-slate-200'}`}>Internal</button>
             </div>
 
